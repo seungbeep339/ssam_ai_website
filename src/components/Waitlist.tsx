@@ -21,7 +21,7 @@ export default function Waitlist() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"}/api/waitlist`,
+        `/api/waitlist`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
