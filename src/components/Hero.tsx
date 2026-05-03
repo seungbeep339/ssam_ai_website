@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
+import ProductMockup from "./ProductMockup";
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -106,6 +107,8 @@ export default function Hero() {
             See How It Works
           </Link>
         </motion.div>
+
+        <ProductMockup />
       </div>
 
       {/* Scroll hint */}
