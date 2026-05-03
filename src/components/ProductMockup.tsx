@@ -2,24 +2,19 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { FileText, Sparkles } from "lucide-react";
 
-const messages = [
-  {
-    role: "user",
-    text: "I don't understand how to solve this integral from my homework.",
-  },
-  {
-    role: "assistant",
-    text: "Let's work through it together. What technique have you tried so far — substitution or integration by parts?",
-  },
-  {
-    role: "user",
-    text: "I tried substitution but got stuck.",
-  },
-  {
-    role: "assistant",
-    text: "Good instinct! Look at the inner function. If you let u = x² + 1, what does du become?",
-  },
+const extractedQuestions = [
+  { id: 1, text: "Find the derivative of f(x) = 3x² + 2x", done: true },
+  { id: 2, text: "Evaluate the limit as x → 0 of sin(x)/x", done: true },
+  { id: 3, text: "Solve the integral ∫(2x + 1)dx from 0 to 3", done: false, active: true },
+  { id: 4, text: "Determine if f(x) = x³ is continuous at x = 2", done: false },
+];
+
+const hints = [
+  { step: 1, text: "Use the power rule: ∫xⁿ dx = xⁿ⁺¹ / (n+1) + C" },
+  { step: 2, text: "Apply it to each term separately: ∫2x dx and ∫1 dx" },
+  { step: 3, text: "Then plug in your bounds: F(3) − F(0)" },
 ];
 
 export default function ProductMockup() {
@@ -45,102 +40,139 @@ export default function ProductMockup() {
         </div>
 
         {/* App layout */}
-        <div className="bg-white flex h-[420px]">
-          {/* Sidebar */}
-          <div className="w-52 border-r border-gray-100 bg-gray-50 p-4 flex flex-col gap-2 shrink-0">
-            <div className="flex items-center gap-2 mb-3">
-              <Image src="/ssam_ai_logo.png" alt="Ssam" width={22} height={22} className="w-5 h-5" />
-              <span className="text-sm font-semibold text-gray-700">Ssam.ai</span>
-            </div>
-            {["Calculus HW 3", "Physics Notes", "Chem Lab Report"].map((item, i) => (
-              <div
-                key={item}
-                className={`text-xs px-3 py-2 rounded-lg cursor-pointer truncate ${
-                  i === 0
-                    ? "bg-white border border-purple-100 text-purple-700 font-medium shadow-sm"
-                    : "text-gray-500 hover:bg-white"
-                }`}
-              >
-                {item}
-              </div>
-            ))}
-            <div className="mt-auto">
-              <div className="text-xs px-3 py-2 rounded-lg text-gray-400 border border-dashed border-gray-200 text-center cursor-pointer hover:border-purple-200">
-                + Upload file
-              </div>
-            </div>
-          </div>
+        <div className="bg-white flex h-[460px]">
 
-          {/* Main area */}
-          <div className="flex-1 flex flex-col">
-            {/* Top bar */}
-            <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-700">Calculus HW 3.pdf</span>
-              <span className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded-full font-medium">
-                Guided mode
-              </span>
+          {/* Left panel — PDF questions */}
+          <div className="w-56 border-r border-gray-100 bg-gray-50 flex flex-col shrink-0">
+            {/* PDF header */}
+            <div className="px-4 py-3 border-b border-gray-100 flex items-center gap-2">
+              <FileText size={14} className="text-red-400 shrink-0" />
+              <span className="text-xs font-medium text-gray-600 truncate">Calculus_HW3.pdf</span>
             </div>
 
-            {/* Chat messages */}
-            <div className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-3">
-              {messages.map((msg, i) => (
+            {/* Extracted questions list */}
+            <div className="px-3 py-3 flex flex-col gap-1.5 overflow-y-auto">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-1 mb-1">
+                Extracted Questions
+              </p>
+              {extractedQuestions.map((q, i) => (
                 <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8 + i * 0.2 }}
-                  className={`flex gap-2.5 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
+                  key={q.id}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.7 + i * 0.1 }}
+                  className={`px-3 py-2.5 rounded-lg cursor-pointer ${
+                    q.active
+                      ? "bg-white border border-purple-200 shadow-sm"
+                      : q.done
+                      ? "opacity-50"
+                      : "hover:bg-white"
+                  }`}
                 >
-                  {msg.role === "assistant" && (
-                    <div className="w-6 h-6 rounded-full shrink-0 overflow-hidden mt-0.5">
-                      <Image src="/ssam_ai_logo.png" alt="Ssam" width={24} height={24} />
+                  <div className="flex items-start gap-2">
+                    <div className={`w-4 h-4 rounded-full border shrink-0 mt-0.5 flex items-center justify-center ${
+                      q.done ? "bg-green-400 border-green-400" : q.active ? "border-purple-400" : "border-gray-300"
+                    }`}>
+                      {q.done && (
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                          <path d="M1.5 4l2 2 3-3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
+                      {q.active && <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />}
                     </div>
-                  )}
-                  <div
-                    className={`text-xs leading-relaxed px-3 py-2 rounded-2xl max-w-[75%] ${
-                      msg.role === "user"
-                        ? "bg-gray-100 text-gray-700 rounded-tr-sm"
-                        : "bg-purple-50 text-gray-700 rounded-tl-sm border border-purple-100"
-                    }`}
-                  >
-                    {msg.text}
+                    <p className={`text-[10px] leading-relaxed line-clamp-2 ${
+                      q.active ? "text-gray-800 font-medium" : "text-gray-500"
+                    }`}>
+                      {q.text}
+                    </p>
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </div>
 
-              {/* Typing indicator */}
+          {/* Right panel — notebook */}
+          <div className="flex-1 flex flex-col overflow-hidden">
+            {/* Top bar */}
+            <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between shrink-0">
+              <div>
+                <span className="text-xs font-semibold text-gray-800">Question 3</span>
+                <span className="ml-2 text-[10px] bg-purple-50 text-purple-600 px-2 py-0.5 rounded-full border border-purple-100">
+                  AI Extracted
+                </span>
+              </div>
+              <div className="flex items-center gap-1 text-[10px] text-gray-400">
+                <Image src="/ssam_ai_logo.png" alt="Ssam" width={14} height={14} className="w-3.5 h-3.5" />
+                Ssam.ai
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-4">
+              {/* Extracted question */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.8 }}
-                className="flex gap-2.5 items-center"
+                transition={{ delay: 0.8 }}
+                className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3"
               >
-                <div className="w-6 h-6 rounded-full overflow-hidden shrink-0">
-                  <Image src="/ssam_ai_logo.png" alt="Ssam" width={24} height={24} />
+                <p className="text-[10px] font-bold text-amber-600 uppercase tracking-wider mb-1">Problem</p>
+                <p className="text-xs text-gray-700 leading-relaxed">
+                  Solve the integral ∫(2x + 1)dx from 0 to 3
+                </p>
+              </motion.div>
+
+              {/* User handwriting */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.0 }}
+                className="border border-gray-100 rounded-xl px-4 py-3 bg-white"
+              >
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Your Work</p>
+                <div
+                  className="text-sm text-gray-700 leading-loose"
+                  style={{ fontFamily: "'Segoe Print', 'Comic Sans MS', cursive", letterSpacing: "0.02em" }}
+                >
+                  <span>∫(2x + 1)dx</span>
+                  <br />
+                  <span>= x² + x + C</span>
+                  <br />
+                  <span className="text-gray-400">= [3² + 3] - [0² + 0]</span>
+                  <br />
+                  <span className="text-gray-400">= 12 - 0 = ?</span>
                 </div>
-                <div className="bg-purple-50 border border-purple-100 px-3 py-2 rounded-2xl rounded-tl-sm flex gap-1 items-center">
-                  {[0, 1, 2].map((i) => (
+              </motion.div>
+
+              {/* AI hints */}
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.3 }}
+                className="border border-purple-100 rounded-xl overflow-hidden"
+              >
+                <div className="px-4 py-2.5 bg-purple-50 border-b border-purple-100 flex items-center gap-2">
+                  <Sparkles size={12} className="text-purple-500" />
+                  <p className="text-[10px] font-bold text-purple-600 uppercase tracking-wider">
+                    Ssam Hints
+                  </p>
+                </div>
+                <div className="px-4 py-3 flex flex-col gap-2.5">
+                  {hints.map((hint, i) => (
                     <motion.div
-                      key={i}
-                      className="w-1.5 h-1.5 rounded-full bg-purple-400"
-                      animate={{ y: [0, -4, 0] }}
-                      transition={{ duration: 0.6, delay: i * 0.15, repeat: Infinity }}
-                    />
+                      key={hint.step}
+                      initial={{ opacity: 0, x: 6 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 1.4 + i * 0.15 }}
+                      className="flex gap-2.5 items-start"
+                    >
+                      <div className="w-4 h-4 rounded-full gradient-btn flex items-center justify-center shrink-0 mt-0.5">
+                        <span className="text-[8px] font-bold text-white">{hint.step}</span>
+                      </div>
+                      <p className="text-[10px] text-gray-600 leading-relaxed">{hint.text}</p>
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
-            </div>
-
-            {/* Input bar */}
-            <div className="px-4 py-3 border-t border-gray-100">
-              <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
-                <span className="text-xs text-gray-400 flex-1">Ask about your notes…</span>
-                <div className="w-6 h-6 rounded-lg gradient-btn flex items-center justify-center shrink-0">
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                    <path d="M1 5h8M5 1l4 4-4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-              </div>
             </div>
           </div>
         </div>
