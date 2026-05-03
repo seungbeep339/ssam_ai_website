@@ -16,7 +16,6 @@ const fadeUp = {
   }),
 };
 
-const stats = ["PDF Support", "Handwriting Recognition", "Step-by-step Hints", "Any Subject"];
 
 export default function Hero() {
   return (
@@ -96,7 +95,7 @@ export default function Hero() {
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className="flex flex-col sm:flex-row gap-3 items-center mb-12"
+          className="flex flex-col sm:flex-row gap-3 items-center"
         >
           <Link
             href="#waitlist"
@@ -113,23 +112,6 @@ export default function Hero() {
           </Link>
         </motion.div>
 
-        {/* Stat pills */}
-        <motion.div
-          custom={5}
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          className="flex flex-wrap justify-center gap-2"
-        >
-          {stats.map((stat) => (
-            <span
-              key={stat}
-              className="text-xs font-medium text-gray-500 bg-white border border-gray-200 px-4 py-1.5 rounded-full shadow-sm"
-            >
-              {stat}
-            </span>
-          ))}
-        </motion.div>
       </div>
 
       {/* Scroll hint */}
