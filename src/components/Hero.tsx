@@ -20,6 +20,10 @@ const fadeUp = {
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16 overflow-hidden">
+      {/* Dot grid texture */}
+      <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" />
+
       {/* Background decoration */}
       <div
         className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full opacity-10 pointer-events-none"

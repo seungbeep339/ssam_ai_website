@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { FileText, Sparkles } from "lucide-react";
 
@@ -19,12 +16,7 @@ const hints = [
 
 export default function ProductMockup() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-      className="w-full max-w-3xl mx-auto mt-16"
-    >
+    <div className="w-full max-w-3xl mx-auto mt-16">
       {/* Browser chrome */}
       <div className="rounded-2xl overflow-hidden shadow-2xl shadow-purple-100 border border-gray-200">
         {/* Title bar */}
@@ -42,25 +34,20 @@ export default function ProductMockup() {
         {/* App layout */}
         <div className="bg-white flex h-[460px]">
 
-          {/* Left panel — PDF questions */}
-          <div className="w-56 border-r border-gray-100 bg-gray-50 flex flex-col shrink-0">
-            {/* PDF header */}
+          {/* Left panel — PDF questions (hidden on mobile) */}
+          <div className="hidden sm:flex w-56 border-r border-gray-100 bg-gray-50 flex-col shrink-0">
             <div className="px-4 py-3 border-b border-gray-100 flex items-center gap-2">
               <FileText size={14} className="text-red-400 shrink-0" />
               <span className="text-xs font-medium text-gray-600 truncate">Calculus_HW3.pdf</span>
             </div>
 
-            {/* Extracted questions list */}
             <div className="px-3 py-3 flex flex-col gap-1.5 overflow-y-auto">
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-1 mb-1">
                 Extracted Questions
               </p>
-              {extractedQuestions.map((q, i) => (
-                <motion.div
+              {extractedQuestions.map((q) => (
+                <div
                   key={q.id}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.7 + i * 0.1 }}
                   className={`px-3 py-2.5 rounded-lg cursor-pointer ${
                     q.active
                       ? "bg-white border border-purple-200 shadow-sm"
@@ -86,14 +73,13 @@ export default function ProductMockup() {
                       {q.text}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
 
           {/* Right panel — notebook */}
           <div className="flex-1 flex flex-col overflow-hidden">
-            {/* Top bar */}
             <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between shrink-0">
               <div>
                 <span className="text-xs font-semibold text-gray-800">Question 3</span>
@@ -109,25 +95,15 @@ export default function ProductMockup() {
 
             <div className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-4">
               {/* Extracted question */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-                className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3"
-              >
+              <div className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">
                 <p className="text-[10px] font-bold text-amber-600 uppercase tracking-wider mb-1">Problem</p>
                 <p className="text-xs text-gray-700 leading-relaxed">
                   Solve the integral ∫(2x + 1)dx from 0 to 3
                 </p>
-              </motion.div>
+              </div>
 
               {/* User handwriting */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.0 }}
-                className="border border-gray-100 rounded-xl px-4 py-3 bg-white"
-              >
+              <div className="border border-gray-100 rounded-xl px-4 py-3 bg-white">
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Your Work</p>
                 <div
                   className="text-sm text-gray-700 leading-loose"
@@ -141,15 +117,10 @@ export default function ProductMockup() {
                   <br />
                   <span className="text-gray-400">= 12 - 0 = ?</span>
                 </div>
-              </motion.div>
+              </div>
 
               {/* AI hints */}
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.3 }}
-                className="border border-purple-100 rounded-xl overflow-hidden"
-              >
+              <div className="border border-purple-100 rounded-xl overflow-hidden">
                 <div className="px-4 py-2.5 bg-purple-50 border-b border-purple-100 flex items-center gap-2">
                   <Sparkles size={12} className="text-purple-500" />
                   <p className="text-[10px] font-bold text-purple-600 uppercase tracking-wider">
@@ -157,26 +128,20 @@ export default function ProductMockup() {
                   </p>
                 </div>
                 <div className="px-4 py-3 flex flex-col gap-2.5">
-                  {hints.map((hint, i) => (
-                    <motion.div
-                      key={hint.step}
-                      initial={{ opacity: 0, x: 6 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 1.4 + i * 0.15 }}
-                      className="flex gap-2.5 items-start"
-                    >
+                  {hints.map((hint) => (
+                    <div key={hint.step} className="flex gap-2.5 items-start">
                       <div className="w-4 h-4 rounded-full gradient-btn flex items-center justify-center shrink-0 mt-0.5">
                         <span className="text-[8px] font-bold text-white">{hint.step}</span>
                       </div>
                       <p className="text-[10px] text-gray-600 leading-relaxed">{hint.text}</p>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

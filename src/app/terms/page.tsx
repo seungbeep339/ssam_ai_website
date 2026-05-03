@@ -84,8 +84,8 @@ export default function TermsPage() {
             <h2 className="text-xl font-semibold text-gray-900 mb-3">8. Contact</h2>
             <p>
               For questions about these Terms, contact us at{" "}
-              <a href="mailto:hello@ssam.ai" className="text-purple-600 hover:underline">
-                hello@ssam.ai
+              <a href="mailto:team@ssamapp.com" className="text-purple-600 hover:underline">
+                team@ssamapp.com
               </a>
               .
             </p>

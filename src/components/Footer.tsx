@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Mail } from "lucide-react";
 
 const footerLinks = {
   Product: [
@@ -9,7 +10,6 @@ const footerLinks = {
   ],
   Company: [
     { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
   ],
   Legal: [
     { label: "Privacy Policy", href: "/privacy" },
@@ -31,9 +31,32 @@ export default function Footer() {
               height={34}
               className="h-8 w-auto mb-4"
             />
-            <p className="text-sm text-gray-500 leading-relaxed max-w-[200px]">
+            <p className="text-sm text-gray-500 leading-relaxed max-w-[200px] mb-5">
               Study from the work you already have.
             </p>
+            {/* Contact */}
+            <div className="flex flex-col gap-2.5">
+              <a
+                href="mailto:team@ssamapp.com"
+                className="flex items-center gap-2 text-sm text-gray-500 hover:text-purple-600 transition-colors group"
+              >
+                <Mail size={14} className="text-gray-400 group-hover:text-purple-500 transition-colors" />
+                team@ssamapp.com
+              </a>
+              <a
+                href="https://www.instagram.com/ssam.ai.official"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-gray-500 hover:text-purple-600 transition-colors group"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 group-hover:text-purple-500 transition-colors">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+                @ssam.ai.official
+              </a>
+            </div>
           </div>
 
           {/* Links */}

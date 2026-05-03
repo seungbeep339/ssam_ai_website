@@ -29,8 +29,9 @@ const items = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-24 px-6 bg-gray-50" id="features">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative py-24 px-6 bg-gray-50 overflow-hidden" id="features">
+      <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
+      <div className="relative max-w-6xl mx-auto">
         {/* Section label */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}

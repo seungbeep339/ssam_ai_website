@@ -61,8 +61,8 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold text-gray-900 mb-3">5. Unsubscribe</h2>
             <p>
               You can remove yourself from the waitlist at any time by emailing us at{" "}
-              <a href="mailto:hello@ssam.ai" className="text-purple-600 hover:underline">
-                hello@ssam.ai
+              <a href="mailto:team@ssamapp.com" className="text-purple-600 hover:underline">
+                team@ssamapp.com
               </a>
               . We will delete your information promptly.
             </p>
@@ -72,8 +72,8 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold text-gray-900 mb-3">6. Contact</h2>
             <p>
               If you have any questions about this Privacy Policy, please contact us at{" "}
-              <a href="mailto:hello@ssam.ai" className="text-purple-600 hover:underline">
-                hello@ssam.ai
+              <a href="mailto:team@ssamapp.com" className="text-purple-600 hover:underline">
+                team@ssamapp.com
               </a>
               .
             </p>

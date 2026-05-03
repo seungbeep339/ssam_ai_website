@@ -6,19 +6,38 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Product", href: "#features" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Product", href: "#features", section: "features" },
+  { label: "About", href: "#about", section: "about" },
+  { label: "Contact", href: "#contact", section: "contact" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ["features", "about", "contact", "waitlist"];
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { rootMargin: "-40% 0px -55% 0px" }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
   }, []);
 
   return (
@@ -30,7 +49,6 @@ export default function Navbar() {
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
             src="/ssam_ai_logo_word.png"
@@ -44,15 +62,23 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.section;
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`text-sm font-medium transition-all duration-200 relative ${
+                  isActive ? "text-gray-900" : "text-gray-500 hover:text-gray-800"
+                }`}
+              >
+                {link.label}
+                {isActive && (
+                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full gradient-btn" />
+                )}
+              </Link>
+            );
+          })}
           <Link
             href="#waitlist"
             className="gradient-btn text-white text-sm font-semibold px-5 py-2 rounded-full shadow-sm"
@@ -78,7 +104,9 @@ export default function Navbar() {
             <Link
               key={link.label}
               href={link.href}
-              className="text-gray-700 font-medium py-1"
+              className={`font-medium py-1 transition-colors ${
+                activeSection === link.section ? "text-purple-600" : "text-gray-700"
+              }`}
               onClick={() => setMobileOpen(false)}
             >
               {link.label}

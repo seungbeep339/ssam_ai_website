@@ -29,7 +29,7 @@ const steps = [
 
 export default function Solution() {
   return (
-    <section className="py-24 px-6 bg-white">
+    <section className="py-24 px-6 bg-white" id="about">
       <div className="max-w-6xl mx-auto">
         {/* Section label */}
         <motion.div
