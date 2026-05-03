@@ -29,7 +29,7 @@ const steps = [
 
 export default function Solution() {
   return (
-    <section className="py-24 px-6 bg-white" id="about">
+    <section className="py-16 md:py-24 px-6 bg-white" id="about">
       <div className="max-w-6xl mx-auto">
         {/* Section label */}
         <motion.div
@@ -39,10 +39,10 @@ export default function Solution() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-12"
         >
-          <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">
+          <span className="text-sm font-extrabold tracking-widest text-purple-500 uppercase">
             02 — Solution
           </span>
-          <div className="h-px flex-1 bg-gray-200" />
+          <div className="h-px flex-1 bg-purple-100" />
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">

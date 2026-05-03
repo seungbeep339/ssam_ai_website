@@ -51,7 +51,7 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="py-24 px-6 bg-white">
+    <section className="py-16 md:py-24 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         {/* Section label */}
         <motion.div
@@ -61,10 +61,10 @@ export default function Features() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-12"
         >
-          <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">
+          <span className="text-sm font-extrabold tracking-widest text-purple-500 uppercase">
             04 — Features
           </span>
-          <div className="h-px flex-1 bg-gray-200" />
+          <div className="h-px flex-1 bg-purple-100" />
         </motion.div>
 
         <motion.h2
@@ -103,7 +103,7 @@ export default function Features() {
                   delay: i * 0.07,
                   ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
                 }}
-                className="p-6 rounded-2xl border border-gray-100 bg-white hover:border-purple-100 hover:shadow-md hover:shadow-purple-50 transition-all duration-300"
+                className="p-6 rounded-2xl border border-gray-100 bg-white hover:border-purple-100 hover:shadow-md hover:shadow-purple-50 hover:-translate-y-1 transition-all duration-200"
               >
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-4 bg-gradient-to-br from-purple-100 to-pink-50">
                   <Icon size={18} className="text-purple-600" />

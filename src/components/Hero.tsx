@@ -16,6 +16,8 @@ const fadeUp = {
   }),
 };
 
+const stats = ["PDF Support", "Handwriting Recognition", "Step-by-step Hints", "Any Subject"];
+
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16 overflow-hidden">
@@ -69,7 +71,7 @@ export default function Hero() {
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 leading-[1.1] mb-6"
+          className="text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-gray-900 leading-[1.05] mb-6"
         >
           Study from the work{" "}
           <span className="gradient-text">you already have.</span>
@@ -94,7 +96,7 @@ export default function Hero() {
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className="flex flex-col sm:flex-row gap-3 items-center"
+          className="flex flex-col sm:flex-row gap-3 items-center mb-12"
         >
           <Link
             href="#waitlist"
@@ -111,6 +113,23 @@ export default function Hero() {
           </Link>
         </motion.div>
 
+        {/* Stat pills */}
+        <motion.div
+          custom={5}
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="flex flex-wrap justify-center gap-2"
+        >
+          {stats.map((stat) => (
+            <span
+              key={stat}
+              className="text-xs font-medium text-gray-500 bg-white border border-gray-200 px-4 py-1.5 rounded-full shadow-sm"
+            >
+              {stat}
+            </span>
+          ))}
+        </motion.div>
       </div>
 
       {/* Scroll hint */}

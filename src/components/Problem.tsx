@@ -37,7 +37,7 @@ const fadeUp = {
 
 export default function Problem() {
   return (
-    <section className="relative py-24 px-6 bg-gray-50 overflow-hidden">
+    <section className="relative py-16 md:py-24 px-6 bg-gray-50 overflow-hidden">
       <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
       <div className="relative max-w-6xl mx-auto">
         {/* Section label */}
@@ -48,10 +48,10 @@ export default function Problem() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-12"
         >
-          <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">
+          <span className="text-sm font-extrabold tracking-widest text-purple-500 uppercase">
             01 — Problem
           </span>
-          <div className="h-px flex-1 bg-gray-200" />
+          <div className="h-px flex-1 bg-purple-100" />
         </motion.div>
 
         <motion.h2
@@ -87,7 +87,7 @@ export default function Problem() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm"
+                className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-200"
               >
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 bg-gradient-to-br from-purple-100 to-pink-50">
                   <Icon size={20} className="text-purple-600" />

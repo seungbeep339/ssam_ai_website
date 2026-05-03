@@ -81,7 +81,7 @@ export default function Navbar() {
           })}
           <Link
             href="#waitlist"
-            className="gradient-btn text-white text-sm font-semibold px-5 py-2 rounded-full shadow-sm"
+            className="gradient-btn pulse-glow text-white text-sm font-semibold px-5 py-2 rounded-full shadow-sm"
           >
             Join Waitlist
           </Link>

@@ -29,7 +29,7 @@ const items = [
 
 export default function HowItWorks() {
   return (
-    <section className="relative py-24 px-6 bg-gray-50 overflow-hidden" id="features">
+    <section className="relative py-16 md:py-24 px-6 bg-gray-50 overflow-hidden" id="features">
       <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
       <div className="relative max-w-6xl mx-auto">
         {/* Section label */}
@@ -40,10 +40,10 @@ export default function HowItWorks() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-12"
         >
-          <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">
+          <span className="text-sm font-extrabold tracking-widest text-purple-500 uppercase">
             03 — How It Works
           </span>
-          <div className="h-px flex-1 bg-gray-200" />
+          <div className="h-px flex-1 bg-purple-100" />
         </motion.div>
 
         <motion.h2

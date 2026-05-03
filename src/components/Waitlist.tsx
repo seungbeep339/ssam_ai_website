@@ -45,7 +45,7 @@ export default function Waitlist() {
   };
 
   return (
-    <section className="relative py-24 px-6 bg-gray-50 overflow-hidden" id="waitlist">
+    <section className="relative py-16 md:py-24 px-6 bg-gray-50 overflow-hidden" id="waitlist">
       <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
       <div className="relative max-w-6xl mx-auto">
         {/* Section label */}
@@ -56,10 +56,10 @@ export default function Waitlist() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-12"
         >
-          <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">
+          <span className="text-sm font-extrabold tracking-widest text-purple-500 uppercase">
             05 — Early Access
           </span>
-          <div className="h-px flex-1 bg-gray-200" />
+          <div className="h-px flex-1 bg-purple-100" />
         </motion.div>
 
         <div className="max-w-xl">
@@ -116,14 +116,14 @@ export default function Waitlist() {
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3.5 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 bg-white text-sm transition-all"
+                className="w-full px-5 py-4 rounded-2xl border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 bg-white text-sm transition-all shadow-sm"
               />
               <input
                 type="text"
                 placeholder="School or university (optional)"
                 value={school}
                 onChange={(e) => setSchool(e.target.value)}
-                className="w-full px-4 py-3.5 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 bg-white text-sm transition-all"
+                className="w-full px-5 py-4 rounded-2xl border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 bg-white text-sm transition-all shadow-sm"
               />
 
               {state === "error" && (
