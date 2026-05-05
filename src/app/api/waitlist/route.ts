@@ -7,7 +7,15 @@ export async function POST(req: NextRequest) {
     process.env.SUPABASE_ANON_KEY!
   );
 
-  const { email, school } = await req.json();
+  const { firstName, lastName, email, school } = await req.json();
+
+  if (!firstName || typeof firstName !== 'string' || !firstName.trim()) {
+    return NextResponse.json({ error: 'First name is required.' }, { status: 400 });
+  }
+
+  if (!lastName || typeof lastName !== 'string' || !lastName.trim()) {
+    return NextResponse.json({ error: 'Last name is required.' }, { status: 400 });
+  }
 
   if (!email || typeof email !== 'string') {
     return NextResponse.json({ error: 'Email is required.' }, { status: 400 });
@@ -20,6 +28,8 @@ export async function POST(req: NextRequest) {
 
   const { error } = await supabase.from('waitlist').insert([
     {
+      first_name: firstName.trim(),
+      last_name: lastName.trim(),
       email: email.toLowerCase().trim(),
       school: school?.trim() || null,
       created_at: new Date().toISOString(),

@@ -7,6 +7,8 @@ import { ArrowRight, CheckCircle, Loader2 } from "lucide-react";
 type FormState = "idle" | "loading" | "success" | "error";
 
 export default function Waitlist() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [school, setSchool] = useState("");
   const [state, setState] = useState<FormState>("idle");
@@ -14,7 +16,7 @@ export default function Waitlist() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!firstName || !lastName || !email) return;
 
     setState("loading");
     setErrorMsg("");
@@ -25,7 +27,7 @@ export default function Waitlist() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, school }),
+          body: JSON.stringify({ firstName, lastName, email, school }),
         }
       );
 
@@ -110,6 +112,24 @@ export default function Waitlist() {
               onSubmit={handleSubmit}
               className="flex flex-col gap-4"
             >
+              <div className="flex gap-3">
+                <input
+                  type="text"
+                  required
+                  placeholder="First name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 bg-white text-sm transition-all shadow-sm"
+                />
+                <input
+                  type="text"
+                  required
+                  placeholder="Last name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="w-full px-5 py-4 rounded-2xl border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 bg-white text-sm transition-all shadow-sm"
+                />
+              </div>
               <input
                 type="email"
                 required

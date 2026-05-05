@@ -4,7 +4,17 @@ import { supabase } from '../lib/supabase';
 const router = Router();
 
 router.post('/', async (req: Request, res: Response) => {
-  const { email, school } = req.body;
+  const { firstName, lastName, email, school } = req.body;
+
+  if (!firstName || typeof firstName !== 'string' || !firstName.trim()) {
+    res.status(400).json({ error: 'First name is required.' });
+    return;
+  }
+
+  if (!lastName || typeof lastName !== 'string' || !lastName.trim()) {
+    res.status(400).json({ error: 'Last name is required.' });
+    return;
+  }
 
   if (!email || typeof email !== 'string') {
     res.status(400).json({ error: 'Email is required.' });
@@ -19,6 +29,8 @@ router.post('/', async (req: Request, res: Response) => {
 
   const { error } = await supabase.from('waitlist').insert([
     {
+      first_name: firstName.trim(),
+      last_name: lastName.trim(),
       email: email.toLowerCase().trim(),
       school: school?.trim() || null,
       created_at: new Date().toISOString(),
