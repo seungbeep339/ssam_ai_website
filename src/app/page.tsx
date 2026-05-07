@@ -7,6 +7,7 @@ import Features from "@/components/Features";
 import Waitlist from "@/components/Waitlist";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
+import DeveloperGate from "@/components/DeveloperGate";
 
 function WaveDown({ from, to }: { from: string; to: string }) {
   return (
@@ -35,6 +36,7 @@ export default function Home() {
         <WaveDown from="bg-white" to="fill-gray-50" />
         <Waitlist />
         <WaveDown from="bg-gray-50" to="fill-white" />
+        <DeveloperGate />
       </main>
       <Footer />
       <BackToTop />
