@@ -1,6 +1,24 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 
+export async function GET() {
+  const supabase = createClient(
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_ANON_KEY!
+  );
+
+  const { data, error } = await supabase
+    .from('waitlist')
+    .select('first_name, last_name, email, created_at')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    return NextResponse.json({ error: 'Failed to fetch waitlist.' }, { status: 500 });
+  }
+
+  return NextResponse.json({ data }, { status: 200 });
+}
+
 export async function POST(req: NextRequest) {
   const supabase = createClient(
     process.env.SUPABASE_URL!,

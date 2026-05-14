@@ -1,8 +1,86 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 const DEVELOPER_PASSWORD = "lemoncrew#2017";
+
+type WaitlistEntry = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  created_at: string;
+};
+
+function KPISection() {
+  return (
+    <a
+      href="https://www.ssamapp.com/kpi"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition hover:shadow-md hover:border-gray-300"
+    >
+      <h2 className="text-xl font-semibold text-gray-900">KPI</h2>
+      <p className="mt-1 text-sm text-gray-500">View key performance indicators →</p>
+    </a>
+  );
+}
+
+function WaitlistSection() {
+  const [entries, setEntries] = useState<WaitlistEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState("");
+
+  useEffect(() => {
+    fetch("/api/waitlist")
+      .then((r) => r.json())
+      .then((json) => {
+        if (json.error) {
+          setFetchError(json.error);
+        } else {
+          setEntries(json.data ?? []);
+        }
+      })
+      .catch(() => setFetchError("Failed to load waitlist."))
+      .finally(() => setLoading(false));
+  }, []);
+
+  return (
+    <a
+      href="https://www.ssamapp.com/waitlistresult"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition hover:shadow-md hover:border-gray-300"
+    >
+      <h2 className="text-xl font-semibold text-gray-900">Waitlist</h2>
+      <p className="mt-1 mb-6 text-sm text-gray-500">
+        {loading ? "Loading…" : fetchError ? fetchError : `${entries.length} sign-ups`}
+      </p>
+
+      {!loading && !fetchError && entries.length > 0 && (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-left">
+            <thead>
+              <tr className="border-b border-gray-100 text-gray-500 text-xs uppercase tracking-wide">
+                <th className="pb-3 pr-6 font-medium">First</th>
+                <th className="pb-3 pr-6 font-medium">Last</th>
+                <th className="pb-3 font-medium">Email</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-50">
+              {entries.map((e, i) => (
+                <tr key={i} className="text-gray-700">
+                  <td className="py-2.5 pr-6">{e.first_name}</td>
+                  <td className="py-2.5 pr-6">{e.last_name}</td>
+                  <td className="py-2.5">{e.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </a>
+  );
+}
 
 export default function DeveloperPage() {
   const [password, setPassword] = useState("");
@@ -22,15 +100,13 @@ export default function DeveloperPage() {
     setError("Incorrect password.");
   };
 
-  return (
-    <div className="min-h-screen px-6 py-28 bg-gray-950 text-white flex items-center justify-center">
-      <div className="w-full max-w-sm">
-        {allowed ? (
-          <h1 className="text-4xl font-bold tracking-normal text-center">Welcom</h1>
-        ) : (
+  if (!allowed) {
+    return (
+      <div className="min-h-screen px-6 py-28 bg-white flex items-center justify-center">
+        <div className="w-full max-w-sm">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="developer-password" className="block text-sm font-medium text-gray-200">
+              <label htmlFor="developer-password" className="block text-sm font-medium text-gray-700">
                 Password
               </label>
               <input
@@ -38,12 +114,12 @@ export default function DeveloperPage() {
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                className="mt-2 w-full rounded-md border border-white/15 bg-white/10 px-4 py-3 text-white outline-none transition focus:border-white/40 focus:bg-white/15"
+                className="mt-2 w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none transition focus:border-gray-500 focus:ring-1 focus:ring-gray-500"
                 autoComplete="current-password"
                 autoFocus
               />
             </div>
-            {error && <p className="text-sm text-red-300">{error}</p>}
+            {error && <p className="text-sm text-red-500">{error}</p>}
             <button
               type="submit"
               className="gradient-btn w-full rounded-md px-4 py-3 text-sm font-semibold text-white shadow-sm"
@@ -51,7 +127,17 @@ export default function DeveloperPage() {
               Enter
             </button>
           </form>
-        )}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-white px-6 py-16">
+      <div className="mx-auto max-w-4xl space-y-6">
+        <h1 className="text-2xl font-bold text-gray-900">Developer</h1>
+        <KPISection />
+        <WaitlistSection />
       </div>
     </div>
   );
