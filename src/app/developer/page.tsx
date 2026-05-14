@@ -1,15 +1,8 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 
 const DEVELOPER_PASSWORD = "lemoncrew#2017";
-
-type WaitlistEntry = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  created_at: string;
-};
 
 function KPISection() {
   return (
@@ -26,24 +19,6 @@ function KPISection() {
 }
 
 function WaitlistSection() {
-  const [entries, setEntries] = useState<WaitlistEntry[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [fetchError, setFetchError] = useState("");
-
-  useEffect(() => {
-    fetch("/api/waitlist")
-      .then((r) => r.json())
-      .then((json) => {
-        if (json.error) {
-          setFetchError(json.error);
-        } else {
-          setEntries(json.data ?? []);
-        }
-      })
-      .catch(() => setFetchError("Failed to load waitlist."))
-      .finally(() => setLoading(false));
-  }, []);
-
   return (
     <a
       href="https://www.ssamapp.com/waitlistresult"
@@ -52,32 +27,7 @@ function WaitlistSection() {
       className="block rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition hover:shadow-md hover:border-gray-300"
     >
       <h2 className="text-xl font-semibold text-gray-900">Waitlist</h2>
-      <p className="mt-1 mb-6 text-sm text-gray-500">
-        {loading ? "Loading…" : fetchError ? fetchError : `${entries.length} sign-ups`}
-      </p>
-
-      {!loading && !fetchError && entries.length > 0 && (
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
-            <thead>
-              <tr className="border-b border-gray-100 text-gray-500 text-xs uppercase tracking-wide">
-                <th className="pb-3 pr-6 font-medium">First</th>
-                <th className="pb-3 pr-6 font-medium">Last</th>
-                <th className="pb-3 font-medium">Email</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-50">
-              {entries.map((e, i) => (
-                <tr key={i} className="text-gray-700">
-                  <td className="py-2.5 pr-6">{e.first_name}</td>
-                  <td className="py-2.5 pr-6">{e.last_name}</td>
-                  <td className="py-2.5">{e.email}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+      <p className="mt-1 text-sm text-gray-500">View sign-ups →</p>
     </a>
   );
 }
